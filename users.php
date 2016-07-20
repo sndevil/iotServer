@@ -3,15 +3,13 @@ session_start();
 include_once('config.php');
 $db=dbConnect();
 $file=file_get_contents("php://input");
-$filesignup = '{"reqtype":"signup", "name":"ali","password":"123", "reqtime":"12356"}';
-$fileupload = '{"reqtype":"upload", "uid":"1" , "password":"123","temperature":"30","humidity":"20","pulse":"32", "reqtime":"12356"}';
-$filedownload = '{"reqtype":"download", "uid":"1" , "password":"123", "reqtime":"12356"}';
-$file1='{"reqtype":"signup", "uid":"1", "reqtime":"12356"}';
-$file2='{"reqtype":"2","uid":"1", "iid":"1", "reqtime":"12356"}';
-$input=json_decode($filedownload);
-//$q = "INSERT INTO Users (UID, Name, Access, LastOnline, Password) VALUES (5,'".$input->name."', 'Admin', '1','".md5($input->password)."')";
-//$db->exec($q);
+//$filesignup = '{"reqtype":"signup", "name":"ali2","password":"123", "reqtime":"12356"}';
+//$fileupload = '{"reqtype":"upload", "uid":"1" , "password":"123","temperature":"30","humidity":"20","pulse":"32", "reqtime":"12356"}';
+//$filedownload = '{"reqtype":"download", "uid":"1" , "password":"123", "reqtime":"12356"}';
+$input=json_decode($file);
 
+try
+{
 //var_dump($input->reqtype);
 if ($input->reqtype=='signup'){
     //signup user
@@ -88,6 +86,10 @@ else if ($input->reqtype=='download')
         $output=array("reqtype"=>"download","table"=>$ar,"reqtime"=>time());
         echo(json_encode($output));	
         
+}
+}
+catch
+{
 }
 
 
