@@ -75,11 +75,17 @@ else if ($input->reqtype=='download')
         if ($_SESSION['user'] == $input->uid)
         {
             $success = 'true';
-            $sql = "SELECT * FROM Data WHERE UID='".$input->uid."' limit 10";
-            $que = $db->query($sql);
-            $result = $que->fetch(PDO::FETCH_ASSOC);
+            $sql = "SELECT * FROM Data WHERE UID = '".$input->uid."' limit 0, 30";
+            $ar = array();
+            foreach($db->query($sql) as $row)
+            {
+                array_push($ar,$row);
+             }
+            //$que = $db->query($sql);
+            //$result = $que->fetch(PDO::FETCH_ASSOC);
+            //print_r($que);
         }
-        $output=array("reqtype"=>"signout","table"=>$result,"reqtime"=>time());
+        $output=array("reqtype"=>"download","table"=>$ar,"reqtime"=>time());
         echo(json_encode($output));	
         
 }
